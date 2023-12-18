@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import apiService from "../services/api.service";
+import { TbAnalyze } from "react-icons/tb";
 
 interface Gene {
   geneID: string;
   transcript: string;
-  experRep: number[][];
-  controlRep: number[][];
+  experRep: number[];
+  controlRep: number[];
 }
 
 interface Analytics {
@@ -27,21 +28,21 @@ const table = () => {
   });
 
   const handleShowModal = (prop: string) => {
-    document!.getElementById("my_modal_1")!.showModal();
+    document!.getElementById("my_modal_1")!.classList.add("modal-open");
     const respond = async () => {
       const dataRes: any = await apiService.analyze(prop);
-      console.log(dataRes);
       setAnalytics({ geneID: prop, ...dataRes.data });
     };
 
     respond();
   };
-
+  const handleCloseModal = () => {
+    document!.getElementById("my_modal_1")!.classList.remove("modal-open");
+  };
   useEffect(() => {
     const getData = async () => {
       const dataRes: any = await apiService.getData();
       setData(dataRes.data);
-      console.log(dataRes);
     };
     getData();
   }, []);
@@ -75,11 +76,10 @@ const table = () => {
               <td>{gene.controlRep[1]}</td>
               <td>{gene.controlRep[2]}</td>
               <td>
-                <button
-                  className="btn btn-info bg-base-100 h-8 w-15"
-                  onClick={() => handleShowModal(gene.geneID)}
-                >
-                  Analyze
+              <button
+                  className=" bg-emerald-400  rounded-full p-1 hover:bg-emerald-500 "
+                  onClick={() => handleShowModal(gene.geneID)}>
+                  <TbAnalyze className="w-5 h-5" />
                 </button>
               </td>
             </tr>
@@ -125,7 +125,9 @@ const table = () => {
           </div>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">Close</button>
+              <button className="btn" onClick={handleCloseModal}>
+                Close
+              </button>
             </form>
           </div>
         </div>

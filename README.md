@@ -1,30 +1,40 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a React + TypeScript + Vite app that can be easily run using Docker Compose.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Make sure you have Docker and Docker Compose installed on your machine.
 
-## Expanding the ESLint configuration
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Getting Started
 
-- Configure the top-level `parserOptions` property like this:
+1. Clone the repository:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+   ```bash
+   git clone <repository-url>
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1- Navigate to the project directory:
+cd <project-directory>
+
+2- Create a .env file in the root of the project:
+VITE_API_BASE_URL=http://x.xyz.com
+
+3- Build and run the app using Docker Compose:
+docker-compose up --build
+
+4-Open your browser and visit http://localhost:3000 to access the application.
+
+Stopping the App
+To stop the application and shut down the Docker containers, use:
+docker-compose down
+
+Configuration
+The VITE_API_BASE_URL environment variable in the .env file controls the base URL for API requests. Update it according to your API endpoint.
+Additional Information
+For development purposes, you can use the npm run dev script to run the application without Docker. Ensure that Node.js is installed on your machine.
+
+Customize the Dockerfile and Docker Compose configuration as needed for your specific requirements.
+

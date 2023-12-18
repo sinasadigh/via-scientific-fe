@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 interface Gene {
   geneID: string;
@@ -12,8 +13,6 @@ interface ApiService {
   setToast: (message: string) => void;
   analyze: (geneID: string) => Promise<any>;
 }
-
-const API_BASE_URL = "http://localhost:3000/api";
 
 const apiService: ApiService = {
   postData: async (data: Gene[]): Promise<any> => {

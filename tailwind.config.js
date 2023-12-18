@@ -6,6 +6,6 @@ export default {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["aqua", "emerald", "forest", "halloween", "lofi", "synthwave"],
+    themes: ["nord"],
   },
 };
