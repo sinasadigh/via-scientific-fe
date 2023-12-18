@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import apiService from "../services/api.service";
-import Toast from "../components/toast";
-
+import Toast from "../ui/toast";
 
 interface Gene {
   geneID: string;
   transcript: string;
-  experRep: number[][];
-  controlRep: number[][];
+  experRep: number[];
+  controlRep: number[];
 }
 
 type ToastProps = {
   message: string;
-  type?: string | "info" | "success" | "warning" | "error";
+  type?: string;
 };
 
 const GeneForm = () => {
@@ -20,8 +19,8 @@ const GeneForm = () => {
     {
       geneID: "",
       transcript: "",
-      experRep: [[0, 0, 0]],
-      controlRep: [[0, 0, 0]],
+      experRep: [0, 0, 0],
+      controlRep: [0, 0, 0],
     },
   ]);
   const [toastMessages, setToastMessages] = useState<ToastProps[]>([]);
@@ -32,8 +31,8 @@ const GeneForm = () => {
       {
         geneID: "",
         transcript: "",
-        experRep: [[0, 0, 0]],
-        controlRep: [[0, 0, 0]],
+        experRep: [0, 0, 0],
+        controlRep: [0, 0, 0],
       },
     ]);
   };
@@ -68,7 +67,6 @@ const GeneForm = () => {
   ) => {
     const updatedGenes = [...genes];
     if (field === "geneID" || field === "transcript") {
-      // If the field is a string, assign it directly
       updatedGenes[index][field] = value as string;
       setGenes(updatedGenes);
     }
@@ -83,9 +81,9 @@ const GeneForm = () => {
     const updatedGenes = [...genes];
     if (field === "experRep" || field === "controlRep") {
       if (typeof subIndex === "number") {
-        updatedGenes[index][field][subIndex] = value;
+        updatedGenes[index][field][subIndex] = value as number;
+        setGenes(updatedGenes);
       }
-      setGenes(updatedGenes);
     }
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -104,7 +102,9 @@ const GeneForm = () => {
     // Handle form submission
     try {
       await apiService.postData(validGenes).then((response: any) => {
-        setToastMessages([{ message: response?.message?.text, type: "success" }]);
+        setToastMessages([
+          { message: response?.message?.text, type: "success" },
+        ]);
         setTimeout(() => {
           setToastMessages([]);
           location.replace("/");
@@ -164,7 +164,6 @@ const GeneForm = () => {
                   type="number"
                   placeholder="0.0"
                   className="input input-bordered max-w-[10rem] sm:max-w-[20rem] "
-                  value={gene.experRep[0][0]}
                   onChange={(e) =>
                     handleArrayChange(index, "experRep", 0, +e.target.value)
                   }
@@ -177,7 +176,6 @@ const GeneForm = () => {
                   type="number"
                   placeholder="0.0"
                   className="input input-bordered max-w-[10rem] sm:max-w-[20rem]"
-                  value={gene.experRep[0][1]}
                   onChange={(e) =>
                     handleArrayChange(index, "experRep", 1, +e.target.value)
                   }
@@ -190,7 +188,6 @@ const GeneForm = () => {
                   type="number"
                   placeholder="0.0"
                   className="input input-bordered max-w-[10rem] sm:max-w-[20rem]"
-                  value={gene.experRep[0][2]}
                   onChange={(e) =>
                     handleArrayChange(index, "experRep", 2, +e.target.value)
                   }
@@ -204,7 +201,6 @@ const GeneForm = () => {
                   type="number"
                   placeholder="0.0"
                   className="input input-bordered max-w-[10rem] sm:max-w-[20rem]"
-                  value={gene.controlRep[0][0]}
                   onChange={(e) =>
                     handleArrayChange(index, "controlRep", 0, +e.target.value)
                   }
@@ -217,7 +213,6 @@ const GeneForm = () => {
                   type="number"
                   placeholder="0.0"
                   className="input input-bordered max-w-[10rem] sm:max-w-[20rem]"
-                  value={gene.controlRep[0][1]}
                   onChange={(e) =>
                     handleArrayChange(index, "controlRep", 1, +e.target.value)
                   }
@@ -230,7 +225,6 @@ const GeneForm = () => {
                   type="number"
                   placeholder="0.0"
                   className="input input-bordered max-w-[10rem] sm:max-w-[20rem]"
-                  value={gene.controlRep[0][2]}
                   onChange={(e) =>
                     handleArrayChange(index, "controlRep", 2, +e.target.value)
                   }

@@ -1,8 +1,7 @@
 import { RouteObject, createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Table from "../components/table";
-import { createGene } from "../components/createGene";
-
+import Table from "../pages/showTable";
+import CreateGene from "../pages/createGene";
 
 const routes: RouteObject[] = [
   {
@@ -15,7 +14,7 @@ const routes: RouteObject[] = [
       },
       {
         path: "/create-gene",
-        element: createGene(),
+        element: <CreateGene />,
       },
     ],
   },

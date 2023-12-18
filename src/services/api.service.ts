@@ -1,11 +1,10 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 interface Gene {
   geneID: string;
   transcript: string;
-  experRep: number[][];
-  controlRep: number[][];
+  experRep: number[];
+  controlRep: number[];
 }
 interface ApiService {
   postData: (data: Gene[]) => Promise<Gene[]>;
@@ -13,6 +12,8 @@ interface ApiService {
   setToast: (message: string) => void;
   analyze: (geneID: string) => Promise<any>;
 }
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const apiService: ApiService = {
   postData: async (data: Gene[]): Promise<any> => {
@@ -24,7 +25,7 @@ const apiService: ApiService = {
       );
       return response.data;
     } catch (error) {
-      handleApiError(error);
+      handleApiError(error as AxiosError);
       throw error;
     }
   },
@@ -35,7 +36,7 @@ const apiService: ApiService = {
       );
       return response.data;
     } catch (error) {
-      handleApiError(error);
+      handleApiError(error as AxiosError);
       throw error;
     }
   },
@@ -46,7 +47,7 @@ const apiService: ApiService = {
       );
       return response.data;
     } catch (error) {
-      handleApiError(error);
+      handleApiError(error as AxiosError);
       throw error;
     }
   },

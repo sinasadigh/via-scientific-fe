@@ -1,5 +1,5 @@
 import { IoMdAdd, IoMdArrowRoundBack } from "react-icons/io";
-import {  useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const header = () => {
   const location = useLocation();
@@ -18,18 +18,13 @@ const header = () => {
   return (
     <div className="navbar bg-base-200 text-neutral-content top-0 h-[100px] overflow-hidden">
       <div className="navbar-start">
-        <a className="btn btn-ghost text-xl">Via Scientific</a>
+        <Link to="/" className="btn btn-ghost text-xl text-blue-500">
+          Via Scientific
+        </Link>
       </div>
 
       <div className="navbar-end">
-        {/* {!isCreateGenePage ? (
-          <Link to="/create-gene" className="btn btn-square">
-            <IoMdAdd className="w-7 h-7" />
-          </Link>
-        ) : (
-            <button onClick={() => navigate(-1)}>Back</button> 
-        )} */}
-        <button onClick={handleButtonClick} className="text-white">
+        <button onClick={handleButtonClick} className="text-blue-500 mr-10">
           {isCreateGenePage ? (
             <IoMdArrowRoundBack className="w-7 h-7" />
           ) : (
